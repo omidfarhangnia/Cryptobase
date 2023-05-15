@@ -7,10 +7,11 @@ import Signin from "./pages/Signin";
 import Signup from "./pages/Signup";
 import Coinpage from "./pages/Coinpage";
 import Account from "./pages/Account";
+import ContextData from "./context/ContextData";
 
 function App() {
   return (
-    <Router>
+    <ContextData>
       <Header />
       <Routes>
         <Route path="/" element={<Home />}/>
@@ -20,7 +21,7 @@ function App() {
         <Route path="/account" element={<Account />}/>
       </Routes>
       <Footer />
-    </Router>
+    </ContextData>
   );
 }
 

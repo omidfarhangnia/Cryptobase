@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Teko:wght@400;500;600&display=swap');
+
+@layer components {
+    .font-pacifico {
+        font-family: "Pacifico", 'Courier New', Courier, monospace;
+    }
+    .font-teko {
+        font-family: "Teko", 'Courier New', Courier, monospace;
+    }
+}
