@@ -4,7 +4,6 @@ import { RxCross1 } from "react-icons/rx";
 import { gsap } from "gsap";
 
 const Header = () => {
-  
   function handleOffCanvasChange(status) {
     const sliceContainer = document.getElementById("sliceContainer");
     const slices = sliceContainer.querySelectorAll(".slices");
@@ -14,7 +13,6 @@ const Header = () => {
       burgerPage.classList.remove(status === "show" ? "hidden" : "flex");
       burgerPage.classList.add(status === "show" ? "flex" : "hidden");
       sliceContainer.classList.add("hidden");
-
     }
 
     if (status === "show") {
@@ -27,7 +25,7 @@ const Header = () => {
           duration: 1.5,
           ease: "power3.out",
           onComplete: () => {
-            gsap.delayedCall(.6, onCompleteFunc, [status])
+            gsap.delayedCall(0.6, onCompleteFunc, [status]);
           },
         }
       );
@@ -41,7 +39,7 @@ const Header = () => {
           duration: 1.5,
           ease: "power3.out",
           onComplete: () => {
-            gsap.delayedCall(.6, onCompleteFunc, [status])
+            gsap.delayedCall(0.6, onCompleteFunc, [status]);
           },
         }
       );

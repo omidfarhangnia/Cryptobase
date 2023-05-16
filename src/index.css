@@ -4,12 +4,27 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Teko:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap');
+
+@layer base {
+    button {
+        all: unset;
+    }
+}
 
 @layer components {
+    /* fonts */
     .font-pacifico {
         font-family: "Pacifico", 'Courier New', Courier, monospace;
     }
     .font-teko {
         font-family: "Teko", 'Courier New', Courier, monospace;
+    }
+    .font-openSans {
+        font-family: "Open Sans", 'Courier New', Courier, monospace;
+    }
+    /* styles */
+    .header-test-shadow {
+        text-shadow: .5vw .5vw #848484;
     }
 }
