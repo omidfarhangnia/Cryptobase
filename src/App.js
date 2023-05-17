@@ -5,9 +5,10 @@ import Footer from "./components/Footer";
 import Home from "./pages/Home"; 
 import Signin from "./pages/Signin";
 import Signup from "./pages/Signup";
-import Coinpage from "./pages/Coinpage";
+import CoinPage from "./pages/CoinPage";
 import Account from "./pages/Account";
 import ContextData from "./context/ContextData";
+import MenuBar from "./components/MenuBar";
 
 function App() {
   return (
@@ -17,10 +18,11 @@ function App() {
         <Route path="/" element={<Home />}/>
         <Route path="/signin" element={<Signin />}/>
         <Route path="/signup" element={<Signup />}/>
-        <Route path="/coinpage" element={<Coinpage />}/>
+        <Route path="/coinpage" element={<CoinPage />}/>
         <Route path="/account" element={<Account />}/>
       </Routes>
       <Footer />
+      <MenuBar />
     </ContextData>
   );
 }

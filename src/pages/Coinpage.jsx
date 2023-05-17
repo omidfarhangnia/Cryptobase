@@ -1,11 +1,11 @@
 import React from 'react'
 
-const Coinpage = () => {
+const CoinPage = () => {
   return (
-    <div>
+    <div id='crypto_page' className='w-[100vw] h-[50vh] mt-[50vh] bg-lime-500'>
       
     </div>
   )
 }
 
-export default Coinpage
+export default CoinPage
