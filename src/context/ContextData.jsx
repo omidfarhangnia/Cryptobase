@@ -4,19 +4,9 @@ import { setSelectionRange } from '@testing-library/user-event/dist/utils';
 
 const pageData = createContext(null);
 
-const ContextData = ({children}) => {
-  const [cryptos, setCryptos] = useState([]);
-  const url = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=10&page=1&sparkline=true&locale=en";
-  // .emv
-  console.log(cryptos)
-  useEffect(() => {
-    axios.get(url).then((response) => {
-      setCryptos(response.data);
-    })
-  }, [url])
-
+const ContextData = ({cryptos, children}) => {
   return (
-    <pageData.Provider value={{}}>
+    <pageData.Provider value={{cryptos}}>
         {children}
     </pageData.Provider>
   )
