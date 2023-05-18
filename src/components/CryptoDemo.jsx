@@ -1,21 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useContextData } from "../context/ContextData";
-import { AiFillStar, AiOutlineStar } from "react-icons/ai";
-import { Sparklines, SparklinesLine } from "react-sparklines";
 import CryptoItem from "./CryptoItem";
 
 const CryptoDemo = () => {
   const [search, setSearch] = useState("");
   const { cryptos } = useContextData();
-  const [filteredCrypto, setFilteredCrypto] = useState([]);
 
   function handleChangeSearch(e) {
     setSearch(e.target.value);
-    setFilteredCrypto(
-      cryptos.filter((item) =>
-        item.name.toLowerCase().startsWith(e.target.value.toLowerCase())
-      )
-    );
   }
 
   return (
@@ -27,43 +19,49 @@ const CryptoDemo = () => {
         <input
           value={search}
           type="text"
-          className="bg-[#fefefe] border-none outline-none px-6 py-2 rounded-full md:text-[20px] md:py-4 md:px-10"
+          className="bg-[#fefefe] border-none outline-none px-6 py-2 rounded-full md:text-[20px] md:py-4 md:px-10 tableScrollBar"
           onChange={handleChangeSearch}
           placeholder="seaarch a crypto"
         />
       </div>
-      <table className="bg-white mt-10 mx-auto w-[90%] rounded-lg">
-        <thead>
-          <tr className="border-b-4">
-            <th className="py-3 capitalize font-openSans"></th>
-            <th className="py-3 capitalize font-openSans">#</th>
-            <th className="py-3 capitalize font-openSans text-start pl-5">
-              crypto
-            </th>
-            <th className="py-3 capitalize font-openSans"></th>
-            <th className="py-3 capitalize font-openSans">price</th>
-            <th className="py-3 capitalize font-openSans">24h</th>
-            <th className="py-3 capitalize font-openSans">24h volume</th>
-            <th className="py-3 uppercase font-openSans">mkt</th>
-            <th className="py-3 capitalize font-openSans">last 7 days</th>
-          </tr>
-        </thead>
-        <tbody>
-          {search.length === 0 ? (
-            cryptos.length > 0 ? (
-              cryptos.map((crypto, index) => (
-                <CryptoItem key={index} crypto={crypto} />
-              ))
+      <div className="w-90% overflow-x-scroll tableScrollBar">
+        <table className="bg-white mt-10 mx-auto w-[90%] rounded-lg min-h-[50vh] min-w-[1000px]">
+          <thead>
+            <tr className="border-b-4">
+              <th className="py-3 capitalize font-openSans"></th>
+              <th className="py-3 capitalize font-openSans">#</th>
+              <th className="py-3 capitalize font-openSans text-start pl-5">
+                crypto
+              </th>
+              <th className="py-3 capitalize font-openSans"></th>
+              <th className="py-3 capitalize font-openSans">price</th>
+              <th className="py-3 capitalize font-openSans">24h</th>
+              <th className="py-3 capitalize font-openSans">24h volume</th>
+              <th className="py-3 uppercase font-openSans">mkt</th>
+              <th className="py-3 capitalize font-openSans">last 7 days</th>
+            </tr>
+          </thead>
+          <tbody>
+            {cryptos.length > 0 ? (
+              cryptos
+                .filter((crypto) => {
+                  if (search === "") {
+                    return crypto;
+                  } else {
+                    return crypto.name
+                      .toLowerCase()
+                      .includes(search.toLowerCase());
+                  }
+                })
+                .map((crypto, index) => (
+                  <CryptoItem key={index} crypto={crypto} />
+                ))
             ) : (
               <CryptoPlaceHolder />
-            )
-          ) : (
-            filteredCrypto.map((crypto, index) => (
-              <CryptoItem key={index} crypto={crypto} />
-            ))
-          )}
-        </tbody>
-      </table>
+            )}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

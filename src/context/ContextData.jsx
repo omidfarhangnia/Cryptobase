@@ -2,9 +2,9 @@ import React, { createContext, useContext } from 'react';
 
 const pageData = createContext(null);
 
-const ContextData = ({cryptos, children}) => {
+const ContextData = ({cryptos, trendingCryptos,  children}) => {
   return (
-    <pageData.Provider value={{cryptos}}>
+    <pageData.Provider value={{cryptos, trendingCryptos}}>
         {children}
     </pageData.Provider>
   )

@@ -13,16 +13,24 @@ import axios from "axios";
 
 function App() {
   const [cryptos, setCryptos] = useState([]);
-  const url = process.env.REACT_APP_FETCH_URL;
+  const [trendingCryptos, setTrendingCryptos] = useState([]);
+  const cryptoUrl = process.env.REACT_APP_CRYPTOS_URL;
+  const trendingCryptoUrl = process.env.REACT_APP_TRENDING_CRYTPO_URL
 
   useEffect(() => {
-    // axios.get(url).then((response) => {
-    //   setCryptos(response.data);
-    // });
-  }, [url]);
+    axios.get(cryptoUrl).then((response) => {
+      setCryptos(response.data);
+    });
+  }, [cryptoUrl]);
+
+  useEffect(() => {
+    axios.get(trendingCryptoUrl).then((response) => {
+      setTrendingCryptos(response.data.coins);
+    })
+  }, [trendingCryptoUrl])
   
   return (
-    <ContextData cryptos={cryptos}>
+    <ContextData cryptos={cryptos} trendingCryptos={trendingCryptos}>
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />

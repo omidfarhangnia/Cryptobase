@@ -27,9 +27,24 @@
     .header-test-shadow {
         text-shadow: .5vw .5vw #848484;
     }
+
     .tablePlaceHolder{
         background: gray;
         animation: placeHolderAnime 3s infinite alternate-reverse;
+    }
+
+    .tableScrollBar::-webkit-scrollbar {
+        height: 10px;
+    }
+    
+    .tableScrollBar::-webkit-scrollbar-track {
+        background: #E6E6E6;
+        border-radius: 10px;
+    }
+    
+    .tableScrollBar::-webkit-scrollbar-thumb {
+        background: #000000;
+        border-radius: 10px;
     }
 }
 

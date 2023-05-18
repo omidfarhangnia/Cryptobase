@@ -5,26 +5,18 @@ import { handleOffCanvasChange } from "./Header";
 const NavBar = () => {
   return (
     <div className="flex justify-between items-center px-6 md:px-8 py-10">
-      <Link to="/">
-        <div className="uppercase w-[25%] lg:w-[20%]">
+      <div className="uppercase w-[25%] lg:w-[20%]">
+        <Link to="/">
           <span className="text-coin font-pacifico text-[20px] md:text-[26px]">
             crypto
           </span>
           <span className="text-dollor font-teko text-[26px] md:text-[35px]">
             base
           </span>
-        </div>
-      </Link>
-      <nav className="hidden ml:block w-[40%] lg:w-[50%]">
+        </Link>
+      </div>
+      <nav className="hidden ml:block w-[40%] lg:w-[35%]">
         <ul className="flex justify-between items-center">
-          <Link>
-            <li className="text-mono group cursor-pointer capitalize text-[16px] lg:text-[20px] text-center font-semibold">
-              <span className="group-hover:text-dollor transition">
-                trending
-              </span>{" "}
-              <span className="group-hover:text-coin transition">coins</span>
-            </li>
-          </Link>
           <Link>
             <li className="text-mono group cursor-pointer capitalize text-[16px] lg:text-[20px] text-center font-semibold">
               <span className="group-hover:text-dollor transition">
