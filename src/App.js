@@ -16,9 +16,9 @@ function App() {
   const url = process.env.REACT_APP_FETCH_URL;
 
   useEffect(() => {
-    axios.get(url).then((response) => {
-      setCryptos(response.data);
-    });
+    // axios.get(url).then((response) => {
+    //   setCryptos(response.data);
+    // });
   }, [url]);
   
   return (

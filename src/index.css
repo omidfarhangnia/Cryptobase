@@ -27,4 +27,17 @@
     .header-test-shadow {
         text-shadow: .5vw .5vw #848484;
     }
+    .tablePlaceHolder{
+        background: gray;
+        animation: placeHolderAnime 3s infinite alternate-reverse;
+    }
+}
+
+@keyframes placeHolderAnime {
+    0%{
+        background: rgb(200, 200, 200);
+    }
+    100%{
+        background: rgb(73, 73, 73);
+    }
 }

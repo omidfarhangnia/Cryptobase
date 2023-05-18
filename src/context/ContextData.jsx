@@ -1,6 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
-import axios from 'axios';
-import { setSelectionRange } from '@testing-library/user-event/dist/utils';
+import React, { createContext, useContext } from 'react';
 
 const pageData = createContext(null);
 

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useContextData } from "../context/ContextData";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import { Sparklines, SparklinesLine } from "react-sparklines";
+import CryptoItem from "./CryptoItem";
 
 const CryptoDemo = () => {
   const [search, setSearch] = useState("");
@@ -10,7 +11,11 @@ const CryptoDemo = () => {
 
   function handleChangeSearch(e) {
     setSearch(e.target.value);
-    setFilteredCrypto(cryptos.filter((item) => ((item.name).toLowerCase()).startsWith((e.target.value).toLowerCase())));
+    setFilteredCrypto(
+      cryptos.filter((item) =>
+        item.name.toLowerCase().startsWith(e.target.value.toLowerCase())
+      )
+    );
   }
 
   return (
@@ -47,14 +52,14 @@ const CryptoDemo = () => {
           {search.length === 0 ? (
             cryptos.length > 0 ? (
               cryptos.map((crypto, index) => (
-                <DemosContainer key={index} crypto={crypto} />
+                <CryptoItem key={index} crypto={crypto} />
               ))
             ) : (
-              <DemonsPlaceHolder />
+              <CryptoPlaceHolder />
             )
           ) : (
             filteredCrypto.map((crypto, index) => (
-              <DemosContainer key={index} crypto={crypto} />
+              <CryptoItem key={index} crypto={crypto} />
             ))
           )}
         </tbody>
@@ -65,39 +70,26 @@ const CryptoDemo = () => {
 
 export default CryptoDemo;
 
-export function DemosContainer({ crypto }) {
-  const [isSaved, setIsSaved] = useState(false);
+export function CryptoPlaceHolder() {
+  let context = [];
 
-  return (
-    <tr className="text-center hover:bg-platinum transition-colors">
-      <td className="py-2 pl-4">
-        {isSaved ? <AiFillStar /> : <AiOutlineStar />}
-      </td>
-      <td className="py-2">{crypto.market_cap_rank}</td>
-      <td className="py-2">
-        <div className="flex ml-3 items-center gap-2">
-          <img
-            className="w-[30px]"
-            src={crypto.image}
-            alt={`this is the symbol of ${crypto.name}`}
-          />
-          <span>{crypto.name}</span>
-        </div>
-      </td>
-      <td className="py-2">{crypto.symbol}</td>
-      <td className="py-2">${crypto.current_price}</td>
-      <td className="py-2">{crypto.price_change_24h.toFixed(3)}</td>
-      <td className="py-2">{crypto.total_volume}</td>
-      <td className="py-2">${crypto.market_cap}</td>
-      <td className="py-2">
-        <Sparklines data={crypto.sparkline_in_7d.price}>
-          <SparklinesLine color="black" />
-        </Sparklines>
-      </td>
-    </tr>
-  );
-}
+  for (var i = 0; i < 10; i++) {
+    let element;
 
-export function DemonsPlaceHolder() {
-  return <div>hello there</div>;
+    element = (
+      <tr className="text-center hover:bg-platinum transition-colors cursor-pointer">
+        <td className="py-4 px-2 border-2 border-solid border-platinum tablePlaceHolder"></td>
+        <td className="py-4 px-2 border-2 border-solid border-platinum tablePlaceHolder"></td>
+        <td className="py-4 px-2 border-2 border-solid border-platinum tablePlaceHolder"></td>
+        <td className="py-4 px-2 border-2 border-solid border-platinum tablePlaceHolder"></td>
+        <td className="py-4 px-2 border-2 border-solid border-platinum tablePlaceHolder"></td>
+        <td className="py-4 px-2 border-2 border-solid border-platinum tablePlaceHolder"></td>
+        <td className="py-4 px-2 border-2 border-solid border-platinum tablePlaceHolder"></td>
+        <td className="py-4 px-2 border-2 border-solid border-platinum tablePlaceHolder"></td>
+        <td className="py-4 px-2 border-2 border-solid border-platinum tablePlaceHolder"></td>
+      </tr>
+    );
+    context.push(element);
+  }
+  return <>{context.map((item) => item)}</>;
 }
