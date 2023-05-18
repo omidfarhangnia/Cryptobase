@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Route, Router, Routes } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -9,10 +9,20 @@ import Account from "./pages/Account";
 import ContextData from "./context/ContextData";
 import MenuBar from "./components/MenuBar";
 import CryptoNewsPage from "./pages/CryptoNewsPage";
+import axios from "axios";
 
 function App() {
+  const [cryptos, setCryptos] = useState([]);
+  const url = process.env.REACT_APP_FETCH_URL;
+
+  useEffect(() => {
+    axios.get(url).then((response) => {
+      setCryptos(response.data);
+    });
+  }, [url]);
+  
   return (
-    <ContextData>
+    <ContextData cryptos={cryptos}>
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
