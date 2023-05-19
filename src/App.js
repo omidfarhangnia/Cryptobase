@@ -10,6 +10,7 @@ import ContextData from "./context/ContextData";
 import MenuBar from "./components/MenuBar";
 import CryptoNewsPage from "./pages/CryptoNewsPage";
 import axios from "axios";
+import CryptoPage from "./pages/CryptoPage";
 
 function App() {
   const [cryptos, setCryptos] = useState([]);
@@ -38,6 +39,9 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/news" element={<CryptoNewsPage />} />
         <Route path="/account" element={<Account />} />
+        <Route path="/crypto/:cryptoId" element={<CryptoPage />}>
+          <Route path=":cryptoId"/>
+        </Route>
       </Routes>
       <Footer />
       <MenuBar />
