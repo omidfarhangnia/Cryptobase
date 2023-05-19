@@ -7,12 +7,18 @@ const CryptoPage = () => {
 
   useEffect(() => {
     axios.get(cryptoIDUrl).then((response) => {
-        setCrypto(response.data);
+      setCrypto(response.data);
     });
   }, [cryptoIDUrl]);
 
-  console.log(crypto)
-  return <div>this is crypto page</div>;
+  console.log(crypto);
+  return (
+    <>
+      <div>
+        {/* <img src={} /> */}
+      </div>
+    </>
+  );
 };
 
 export default CryptoPage;

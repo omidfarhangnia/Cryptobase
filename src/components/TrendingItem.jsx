@@ -4,7 +4,7 @@ import bitCoinImage from "../images/bitcoin_image.png";
 
 const TrendingItem = ({ crypto }) => {
   return (
-    <div className="flex flex-wrap ml:w-[45%] ml:rounded-xl lg:w-[30%] group hover:bg-darkBlue transition-all shadow-xl  gap-5 items-center p-4 w-full bg-white my-10">
+    <div className="flex select-none flex-wrap ml:w-[45%] ml:rounded-xl lg:w-[30%] group hover:bg-darkBlue transition-all shadow-xl  gap-5 items-center p-4 w-full bg-white my-10">
       <div className="w-[40%] ml:w-auto order-1 ml:group-hover:scale-125 transition-all">
         <img src={crypto.item.small} className="w-[40px] h-[40px]" alt="the symbol of crypto" />
       </div>
