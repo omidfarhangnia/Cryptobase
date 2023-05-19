@@ -75,7 +75,7 @@ export function CryptoPlaceHolder() {
     let element;
 
     element = (
-      <tr className="text-center hover:bg-platinum transition-colors cursor-pointer">
+      <>
         <td className="py-4 px-2 border-2 border-solid border-platinum tablePlaceHolder"></td>
         <td className="py-4 px-2 border-2 border-solid border-platinum tablePlaceHolder"></td>
         <td className="py-4 px-2 border-2 border-solid border-platinum tablePlaceHolder"></td>
@@ -85,9 +85,15 @@ export function CryptoPlaceHolder() {
         <td className="py-4 px-2 border-2 border-solid border-platinum tablePlaceHolder"></td>
         <td className="py-4 px-2 border-2 border-solid border-platinum tablePlaceHolder"></td>
         <td className="py-4 px-2 border-2 border-solid border-platinum tablePlaceHolder"></td>
-      </tr>
+      </>
     );
     context.push(element);
   }
-  return <>{context.map((item) => item)}</>;
+  return (
+    <>
+      {context.map((item, index) => (
+        <tr className="text-center hover:bg-platinum transition-colors cursor-pointer" key={index}>{item}</tr>
+      ))}
+    </>
+  );
 }
