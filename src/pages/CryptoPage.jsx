@@ -2,6 +2,8 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { AiFillInstagram } from "react-icons/ai";
 import { BsGithub, BsMeta, BsTwitter } from "react-icons/bs";
+import { Sparklines, SparklinesLine } from "react-sparklines";
+import DOMPurify from 'dompurify'
 
 
 const CryptoPage = () => {
@@ -14,10 +16,9 @@ const CryptoPage = () => {
     });
   }, [cryptoIDUrl]);
 
-  console.log(crypto);
   return (
     <>
-      <div>
+      <div className="">
         <div>
           <img src={crypto.image?.large} alt="this is the symbol of crypto" />
           <div>
@@ -28,28 +29,42 @@ const CryptoPage = () => {
         <div>
           <div>
             <div>
-              <p>{crypto.market_data}</p>
+              {crypto.market_data?.current_price && (
+                <p>{crypto.market_data.current_price.usd.toLocaleString()}</p>
+              )}
               <p>7 day</p>
             </div>
-            <div>spirkline</div>
+            <div>
+              <Sparklines data={crypto.market_data?.sparkline_7d.price}>
+                <SparklinesLine color="black" />
+              </Sparklines>
+            </div>
             <div>
               <div>
                 <span>market cap</span>
-                <span>$44444444444</span>
+                {crypto.market_data?.market_cap && (
+                  <p>{crypto.market_data.market_cap.usd.toLocaleString()}</p>
+                )}
               </div>
               <div>
-                <span>volume 24h</span>
-                <span>$2002020202020200</span>
+                <span>volume (24h)</span>
+                {crypto.market_data?.market_cap && (
+                  <p>{crypto.market_data.total_volume.usd.toLocaleString()}</p>
+                )}
               </div>
             </div>
             <div>
               <div>
                 <span>24h high</span>
-                <span>$30792</span>
+                {crypto.market_data?.high_24h && (
+                <p>{crypto.market_data.high_24h.usd.toLocaleString()}</p>
+              )}
               </div>
               <div>
                 <span>24h low</span>
-                <span>29900</span>
+                {crypto.market_data?.low_24h && (
+                <p>{crypto.market_data.low_24h.usd.toLocaleString()}</p>
+              )}
               </div>
             </div>
           </div>
@@ -58,39 +73,43 @@ const CryptoPage = () => {
             <div>
               <div>
                 <span>market rank</span>
-                <span>heee</span>
+                {crypto.market_cap_rank}
               </div>
               <div>
                 <span>hashing algorithn</span>
-                <span>heee</span>
+                {crypto.hashing_algorithm && (
+                <p>{crypto.hashing_algorithm}</p>
+              )}
               </div>
               <div>
                 <span>trust score</span>
-                <span>heee</span>
+                {crypto.tickers && (
+                <p>{crypto.liquidity_score.toFixed(2)}</p>
+              )}
               </div>
               <div>
                 <span>price change 24h</span>
-                <span>heee</span>
+                {crypto.market_data && (<p className={`${crypto.market_data.price_change_percentage_24h > 0 ? "text-green-600" : "text-red-600"}`}>{crypto.market_data.price_change_percentage_24h.toFixed(2)}</p>)}
               </div>
               <div>
                 <span>price change (7d)</span>
-                <span>heee</span>
+                {crypto.market_data && (<p className={`${crypto.market_data.price_change_percentage_7d > 0 ? "text-green-600" : "text-red-600"}`}>{crypto.market_data.price_change_percentage_7d.toFixed(2)}</p>)}
               </div>
               <div>
                 <span>price change (14d)</span>
-                <span>heee</span>
+                {crypto.market_data && (<p className={`${crypto.market_data.price_change_percentage_14d > 0 ? "text-green-600" : "text-red-600"}`}>{crypto.market_data.price_change_percentage_14d.toFixed(2)}</p>)}
               </div>
               <div>
                 <span>price change (30d)</span>
-                <span>heee</span>
+                {crypto.market_data && (<p className={`${crypto.market_data.price_change_percentage_30d > 0 ? "text-green-600" : "text-red-600"}`}>{crypto.market_data.price_change_percentage_30d.toFixed(2)}</p>)}
               </div>
               <div>
                 <span>price change (60d)</span>
-                <span>heee</span>
+                {crypto.market_data && (<p className={`${crypto.market_data.price_change_percentage_60d > 0 ? "text-green-600" : "text-red-600"}`}>{crypto.market_data.price_change_percentage_60d.toFixed(2)}</p>)}
               </div>
               <div>
                 <span>price change (1y)</span>
-                <span>heee</span>
+                {crypto.market_data && (<p className={`${crypto.market_data.price_change_percentage_1y > 0 ? "text-green-600" : "text-red-600"}`}>{crypto.market_data.price_change_percentage_1y.toFixed(2)}</p>)}
               </div>
             </div>
             <div>
@@ -114,8 +133,8 @@ const CryptoPage = () => {
           </div>
         </div>
         <div>
-          <h2>about this</h2>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi fugit ducimus ullam, ipsa quisquam suscipit odit temporibus numquam aut debitis sequi libero repudiandae in iusto nam tempora exercitationem delectus omnis aperiam veniam voluptatem iure voluptatibus. Voluptate impedit deleniti iure recusandae quisquam asperiores eligendi dolorum laudantium totam cumque. Cupiditate ut necessitatibus earum sapiente. Consectetur porro alias rem, inventore qui at quo nostrum quidem accusantium explicabo nihil atque fuga, enim asperiores nisi. Natus, vero impedit error numquam quibusdam recusandae labore, quia rerum aliquid facere, similique magnam illum delectus aliquam repellendus eos molestiae est. Qui facilis omnis nam hic nemo? Accusantium ullam illum rerum vero dolore delectus vel eaque, et voluptates labore quo excepturi culpa, similique eius accusamus ea doloremque, autem magni repudiandae. Modi, inventore autem tempore exercitationem eum maxime officia omnis aperiam veritatis. Inventore maxime, minima minus rerum vel laudantium maiores temporibus? Sequi aspernatur assumenda natus esse, fuga ea id corrupti unde dolores quod minus sit magni cum quasi blanditiis, beatae iure. Consequuntur perspiciatis accusantium maiores at fugiat sint similique eius mollitia, dolorem dicta adipisci nisi minus provident accusamus veritatis, voluptas reiciendis, ducimus nam. Labore ratione laboriosam voluptates fuga sequi iste rem vel ex mollitia, accusantium sint doloribus. Culpa saepe vero, molestiae soluta voluptate error reprehenderit, est modi nesciunt inventore rem id voluptatum numquam dolore velit alias illo ipsum repudiandae omnis odio harum. Sint hic doloremque nobis ipsum excepturi maiores blanditiis, odit eligendi accusamus, quam doloribus, aperiam natus! Repellat assumenda numquam voluptatum suscipit provident sequi nesciunt deserunt illo ex adipisci voluptatibus temporibus corrupti officiis quo saepe a, ullam accusamus maxime magni dolores enim rerum eligendi. Aut enim excepturi officiis magnam corrupti aperiam voluptate voluptatibus commodi animi ab rem repellendus at voluptatum expedita quia corporis est architecto similique nam asperiores, quo quis sint? Veniam mollitia alias asperiores! Sit cumque tenetur fuga labore et.</p>
+          <h2>about {crypto.name}</h2>
+          <p dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(crypto.description ? crypto.description.en : null)}}></p>
         </div>
       </div>
     </>
