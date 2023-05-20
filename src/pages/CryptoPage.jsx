@@ -3,8 +3,7 @@ import React, { useEffect, useState } from "react";
 import { AiFillInstagram } from "react-icons/ai";
 import { BsGithub, BsMeta, BsTwitter } from "react-icons/bs";
 import { Sparklines, SparklinesLine } from "react-sparklines";
-import DOMPurify from 'dompurify'
-
+import DOMPurify from "dompurify";
 
 const CryptoPage = () => {
   const [crypto, setCrypto] = useState({});
@@ -18,114 +17,182 @@ const CryptoPage = () => {
 
   return (
     <>
-      <div className="">
-        <div>
-          <img src={crypto.image?.large} alt="this is the symbol of crypto" />
-          <div>
-            <h1>{crypto?.name} price</h1>
-            <div className="uppercase">({crypto?.symbol} / USD)</div>
+      <div className="flex flex-col gap-10 p-10">
+        <div className="flex items-center gap-5 md:gap-10">
+          <img
+            src={crypto.image?.large}
+            className="max-w-[140px] w-[40%] max-h-[140px] h-[40%]"
+            alt="this is the symbol of crypto"
+          />
+          <div className="flex flex-col">
+            <h1 className="text-2xl md:text-3xl lg:text-5xl font-bold capitalize md:mb-2 lg:mb-4">
+              {crypto?.name}
+            </h1>
+            <div className="uppercase text-[16px] md:text-1xl lg:text-2xl text-black/80">
+              ({crypto?.symbol} / USD)
+            </div>
           </div>
         </div>
-        <div>
-          <div>
-            <div>
+        <div className="flex flex-wrap justify-center md:justify-between">
+          <div className="w-[90%] md:w-[45%] flex flex-col gap-4">
+            <div className="flex w-full justify-between items-center">
               {crypto.market_data?.current_price && (
-                <p>{crypto.market_data.current_price.usd.toLocaleString()}</p>
+                <p className="text-2xl md:text-3xl lg:text-4xl font-bold font-opensSans">
+                  ${crypto.market_data.current_price.usd.toLocaleString()}
+                </p>
               )}
-              <p>7 day</p>
+              <p className="text-1xl uppercase">7 day</p>
             </div>
-            <div>
+            <div className="my-4">
               <Sparklines data={crypto.market_data?.sparkline_7d.price}>
                 <SparklinesLine color="black" />
               </Sparklines>
             </div>
-            <div>
-              <div>
-                <span>market cap</span>
+            <div className="flex justify-between">
+              <div className="flex flex-col min-w-[30%]">
+                <span className="capitalize font-bold">market cap</span>
                 {crypto.market_data?.market_cap && (
-                  <p>{crypto.market_data.market_cap.usd.toLocaleString()}</p>
+                  <p>${crypto.market_data.market_cap.usd.toLocaleString()}</p>
                 )}
               </div>
-              <div>
-                <span>volume (24h)</span>
+              <div className="flex flex-col min-w-[30%] items-end">
+                <span className="capitalize font-bold">volume (24h)</span>
                 {crypto.market_data?.market_cap && (
-                  <p>{crypto.market_data.total_volume.usd.toLocaleString()}</p>
+                  <p>${crypto.market_data.total_volume.usd.toLocaleString()}</p>
                 )}
               </div>
             </div>
-            <div>
-              <div>
-                <span>24h high</span>
+            <div className="flex justify-between">
+              <div className="flex flex-col w-[30%] min-w-[30%]">
+                <span className="capitalize font-bold">24h high</span>
                 {crypto.market_data?.high_24h && (
-                <p>{crypto.market_data.high_24h.usd.toLocaleString()}</p>
-              )}
+                  <p>${crypto.market_data.high_24h.usd.toLocaleString()}</p>
+                )}
               </div>
-              <div>
-                <span>24h low</span>
+              <div className="flex flex-col min-w-[30%] items-end">
+                <span className="capitalize font-bold">24h low</span>
                 {crypto.market_data?.low_24h && (
-                <p>{crypto.market_data.low_24h.usd.toLocaleString()}</p>
-              )}
+                  <p>${crypto.market_data.low_24h.usd.toLocaleString()}</p>
+                )}
               </div>
             </div>
           </div>
-          <div>
-            <h2>market stats</h2>
-            <div>
-              <div>
-                <span>market rank</span>
-                {crypto.market_cap_rank}
+          <div className="w-[90%] md:w-[45%] mt-10 md:mt-0">
+            <h2 className="text-2xl capitalize font-bold mb-3 md:mb-5">
+              market stats
+            </h2>
+            <div className="flex flex-wrap justify-between my-5 gap-y-5">
+              <div className="flex flex-col w-[45%] lg:w-[30%]">
+                <span className="font-semibold capitalize">market rank</span>
+                <p>{crypto.market_cap_rank}</p>
               </div>
-              <div>
-                <span>hashing algorithn</span>
-                {crypto.hashing_algorithm && (
-                <p>{crypto.hashing_algorithm}</p>
-              )}
+              <div className="flex flex-col w-[45%] lg:w-[30%]">
+                <span className="font-semibold capitalize">hashing algorithn</span>
+                {crypto.hashing_algorithm && <p>{crypto.hashing_algorithm}</p>}
               </div>
-              <div>
-                <span>trust score</span>
-                {crypto.tickers && (
-                <p>{crypto.liquidity_score.toFixed(2)}</p>
-              )}
+              <div className="flex flex-col w-[45%] lg:w-[30%]">
+                <span className="font-semibold capitalize">trust score</span>
+                {crypto.tickers && <p>{crypto.liquidity_score.toFixed(2)}</p>}
               </div>
-              <div>
-                <span>price change 24h</span>
-                {crypto.market_data && (<p className={`${crypto.market_data.price_change_percentage_24h > 0 ? "text-green-600" : "text-red-600"}`}>{crypto.market_data.price_change_percentage_24h.toFixed(2)}</p>)}
+              <div className="flex flex-col w-[45%] lg:w-[30%]">
+                <span className="font-semibold capitalize">price change (24h)</span>
+                {crypto.market_data && (
+                  <p
+                    className={`${
+                      crypto.market_data.price_change_percentage_24h > 0
+                        ? "text-green-600"
+                        : "text-red-600"
+                    }`}
+                  >
+                    {crypto.market_data.price_change_percentage_24h.toFixed(2)}
+                  </p>
+                )}
               </div>
-              <div>
-                <span>price change (7d)</span>
-                {crypto.market_data && (<p className={`${crypto.market_data.price_change_percentage_7d > 0 ? "text-green-600" : "text-red-600"}`}>{crypto.market_data.price_change_percentage_7d.toFixed(2)}</p>)}
+              <div className="flex flex-col w-[45%] lg:w-[30%]">
+                <span className="font-semibold capitalize">price change (7d)</span>
+                {crypto.market_data && (
+                  <p
+                    className={`${
+                      crypto.market_data.price_change_percentage_7d > 0
+                        ? "text-green-600"
+                        : "text-red-600"
+                    }`}
+                  >
+                    {crypto.market_data.price_change_percentage_7d.toFixed(2)}
+                  </p>
+                )}
               </div>
-              <div>
-                <span>price change (14d)</span>
-                {crypto.market_data && (<p className={`${crypto.market_data.price_change_percentage_14d > 0 ? "text-green-600" : "text-red-600"}`}>{crypto.market_data.price_change_percentage_14d.toFixed(2)}</p>)}
+              <div className="flex flex-col w-[45%] lg:w-[30%]">
+                <span className="font-semibold capitalize">price change (14d)</span>
+                {crypto.market_data && (
+                  <p
+                    className={`${
+                      crypto.market_data.price_change_percentage_14d > 0
+                        ? "text-green-600"
+                        : "text-red-600"
+                    }`}
+                  >
+                    {crypto.market_data.price_change_percentage_14d.toFixed(2)}
+                  </p>
+                )}
               </div>
-              <div>
-                <span>price change (30d)</span>
-                {crypto.market_data && (<p className={`${crypto.market_data.price_change_percentage_30d > 0 ? "text-green-600" : "text-red-600"}`}>{crypto.market_data.price_change_percentage_30d.toFixed(2)}</p>)}
+              <div className="flex flex-col w-[45%] lg:w-[30%]">
+                <span className="font-semibold capitalize">price change (30d)</span>
+                {crypto.market_data && (
+                  <p
+                    className={`${
+                      crypto.market_data.price_change_percentage_30d > 0
+                        ? "text-green-600"
+                        : "text-red-600"
+                    }`}
+                  >
+                    {crypto.market_data.price_change_percentage_30d.toFixed(2)}
+                  </p>
+                )}
               </div>
-              <div>
-                <span>price change (60d)</span>
-                {crypto.market_data && (<p className={`${crypto.market_data.price_change_percentage_60d > 0 ? "text-green-600" : "text-red-600"}`}>{crypto.market_data.price_change_percentage_60d.toFixed(2)}</p>)}
+              <div className="flex flex-col w-[45%] lg:w-[30%]">
+                <span className="font-semibold capitalize">price change (60d)</span>
+                {crypto.market_data && (
+                  <p
+                    className={`${
+                      crypto.market_data.price_change_percentage_60d > 0
+                        ? "text-green-600"
+                        : "text-red-600"
+                    }`}
+                  >
+                    {crypto.market_data.price_change_percentage_60d.toFixed(2)}
+                  </p>
+                )}
               </div>
-              <div>
-                <span>price change (1y)</span>
-                {crypto.market_data && (<p className={`${crypto.market_data.price_change_percentage_1y > 0 ? "text-green-600" : "text-red-600"}`}>{crypto.market_data.price_change_percentage_1y.toFixed(2)}</p>)}
+              <div className="flex flex-col w-[45%] lg:w-[30%]">
+                <span className="font-semibold capitalize">price change (1y)</span>
+                {crypto.market_data && (
+                  <p
+                    className={`${
+                      crypto.market_data.price_change_percentage_1y > 0
+                        ? "text-green-600"
+                        : "text-red-600"
+                    }`}
+                  >
+                    {crypto.market_data.price_change_percentage_1y.toFixed(2)}
+                  </p>
+                )}
               </div>
             </div>
-            <div>
+            <div className="w-[90%] mx-auto">
               <nav>
-                <ul>
+                <ul className="flex justify-between mt-6">
                   <li>
-                    <AiFillInstagram size={22} />
+                    <AiFillInstagram size={25} />
                   </li>
                   <li>
-                    <BsTwitter size={22} />
+                    <BsTwitter size={25} />
                   </li>
                   <li>
-                    <BsMeta size={22} />
+                    <BsMeta size={25} />
                   </li>
                   <li>
-                    <BsGithub size={22} />
+                    <BsGithub size={25} />
                   </li>
                 </ul>
               </nav>
@@ -133,8 +200,14 @@ const CryptoPage = () => {
           </div>
         </div>
         <div>
-          <h2>about {crypto.name}</h2>
-          <p dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(crypto.description ? crypto.description.en : null)}}></p>
+          <h2 className="text-2xl md:text-3xl font-bold capitalize mb-4">about {crypto.name}</h2>
+          <p className="text-[16px] md:text-[17px] font-openSans text-justify"
+            dangerouslySetInnerHTML={{
+              __html: DOMPurify.sanitize(
+                crypto.description ? crypto.description.en : null
+              ),
+            }}
+          ></p>
         </div>
       </div>
     </>
