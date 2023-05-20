@@ -1,9 +1,10 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import { AiFillInstagram } from "react-icons/ai";
 import { BsGithub, BsMeta, BsTwitter } from "react-icons/bs";
 import { Sparklines, SparklinesLine } from "react-sparklines";
 import DOMPurify from "dompurify";
+import { gsap } from "gsap";
 
 const CryptoPage = () => {
   const [crypto, setCrypto] = useState({});
@@ -15,6 +16,41 @@ const CryptoPage = () => {
     });
   }, [cryptoIDUrl]);
 
+  useLayoutEffect(() => {
+    const tl = gsap.timeline();
+    tl
+      .fromTo("#cryptoImage", {y: 80, opacity: 0}, {
+        opacity: 1,
+        y: 0,
+        duration: .5,
+        ease: "power3.out"
+      })
+      .fromTo(".cryptoNameAndId", {y: 60, opacity: 0}, {
+        opacity: 1,
+        y: 0,
+        duration: .5,
+        ease: 'power3.out',
+        stagger: .2,
+      })
+      .fromTo(
+        ".cryptoDataContainer > *",
+        { opacity: 0 },
+        {
+          opacity: 1,
+          duration: 0.25,
+          stagger: 0.25,
+          ease: "steps (1)",
+        }
+      )
+      .fromTo(".cryptoDescription > *", {opacity: 0, y: 90}, {
+        opacity: 1,
+        y: 0,
+        duration: .5,
+        stagger: .5,
+        ease: "power3.out"
+      })
+  }, []);
+
   return (
     <>
       <div className="flex flex-col gap-10 p-10">
@@ -23,18 +59,19 @@ const CryptoPage = () => {
             src={crypto.image?.large}
             className="max-w-[140px] w-[40%] max-h-[140px] h-[40%]"
             alt="this is the symbol of crypto"
+            id="cryptoImage"
           />
           <div className="flex flex-col">
-            <h1 className="text-2xl md:text-3xl lg:text-5xl font-bold capitalize md:mb-2 lg:mb-4">
+            <h1 className="cryptoNameAndId text-2xl md:text-3xl lg:text-5xl font-bold capitalize md:mb-2 lg:mb-4">
               {crypto?.name}
             </h1>
-            <div className="uppercase text-[16px] md:text-1xl lg:text-2xl text-black/80">
+            <div className="cryptoNameAndId uppercase text-[16px] md:text-1xl lg:text-2xl text-black/80">
               ({crypto?.symbol} / USD)
             </div>
           </div>
         </div>
         <div className="flex flex-wrap justify-center md:justify-between">
-          <div className="w-[90%] md:w-[45%] flex flex-col gap-4">
+          <div className="cryptoDataContainer w-[90%] md:w-[45%] flex flex-col gap-4">
             <div className="flex w-full justify-between items-center">
               {crypto.market_data?.current_price && (
                 <p className="text-2xl md:text-3xl lg:text-4xl font-bold font-opensSans">
@@ -77,7 +114,7 @@ const CryptoPage = () => {
               </div>
             </div>
           </div>
-          <div className="w-[90%] md:w-[45%] mt-10 md:mt-0">
+          <div className="cryptoDataContainer w-[90%] md:w-[45%] mt-10 md:mt-0">
             <h2 className="text-2xl capitalize font-bold mb-3 md:mb-5">
               market stats
             </h2>
@@ -87,7 +124,9 @@ const CryptoPage = () => {
                 <p>{crypto.market_cap_rank}</p>
               </div>
               <div className="flex flex-col w-[45%] lg:w-[30%]">
-                <span className="font-semibold capitalize">hashing algorithn</span>
+                <span className="font-semibold capitalize">
+                  hashing algorithn
+                </span>
                 {crypto.hashing_algorithm && <p>{crypto.hashing_algorithm}</p>}
               </div>
               <div className="flex flex-col w-[45%] lg:w-[30%]">
@@ -95,7 +134,9 @@ const CryptoPage = () => {
                 {crypto.tickers && <p>{crypto.liquidity_score.toFixed(2)}</p>}
               </div>
               <div className="flex flex-col w-[45%] lg:w-[30%]">
-                <span className="font-semibold capitalize">price change (24h)</span>
+                <span className="font-semibold capitalize">
+                  price change (24h)
+                </span>
                 {crypto.market_data && (
                   <p
                     className={`${
@@ -109,7 +150,9 @@ const CryptoPage = () => {
                 )}
               </div>
               <div className="flex flex-col w-[45%] lg:w-[30%]">
-                <span className="font-semibold capitalize">price change (7d)</span>
+                <span className="font-semibold capitalize">
+                  price change (7d)
+                </span>
                 {crypto.market_data && (
                   <p
                     className={`${
@@ -123,7 +166,9 @@ const CryptoPage = () => {
                 )}
               </div>
               <div className="flex flex-col w-[45%] lg:w-[30%]">
-                <span className="font-semibold capitalize">price change (14d)</span>
+                <span className="font-semibold capitalize">
+                  price change (14d)
+                </span>
                 {crypto.market_data && (
                   <p
                     className={`${
@@ -137,7 +182,9 @@ const CryptoPage = () => {
                 )}
               </div>
               <div className="flex flex-col w-[45%] lg:w-[30%]">
-                <span className="font-semibold capitalize">price change (30d)</span>
+                <span className="font-semibold capitalize">
+                  price change (30d)
+                </span>
                 {crypto.market_data && (
                   <p
                     className={`${
@@ -151,7 +198,9 @@ const CryptoPage = () => {
                 )}
               </div>
               <div className="flex flex-col w-[45%] lg:w-[30%]">
-                <span className="font-semibold capitalize">price change (60d)</span>
+                <span className="font-semibold capitalize">
+                  price change (60d)
+                </span>
                 {crypto.market_data && (
                   <p
                     className={`${
@@ -165,7 +214,9 @@ const CryptoPage = () => {
                 )}
               </div>
               <div className="flex flex-col w-[45%] lg:w-[30%]">
-                <span className="font-semibold capitalize">price change (1y)</span>
+                <span className="font-semibold capitalize">
+                  price change (1y)
+                </span>
                 {crypto.market_data && (
                   <p
                     className={`${
@@ -179,7 +230,7 @@ const CryptoPage = () => {
                 )}
               </div>
             </div>
-            <div className="w-[90%] mx-auto">
+            <div className="w-[90%] md:w-[80%] mx-auto md:ml-6">
               <nav>
                 <ul className="flex justify-between mt-6">
                   <li>
@@ -199,9 +250,12 @@ const CryptoPage = () => {
             </div>
           </div>
         </div>
-        <div>
-          <h2 className="text-2xl md:text-3xl font-bold capitalize mb-4">about {crypto.name}</h2>
-          <p className="text-[16px] md:text-[17px] font-openSans text-justify"
+        <div className="cryptoDescription">
+          <h2 className="text-2xl md:text-3xl font-bold capitalize mb-4">
+            about {crypto.name}
+          </h2>
+          <p
+            className="text-[16px] md:text-[17px] font-openSans text-justify"
             dangerouslySetInnerHTML={{
               __html: DOMPurify.sanitize(
                 crypto.description ? crypto.description.en : null
