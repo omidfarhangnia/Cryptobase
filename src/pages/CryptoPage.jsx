@@ -5,33 +5,46 @@ import { BsGithub, BsMeta, BsTwitter } from "react-icons/bs";
 import { Sparklines, SparklinesLine } from "react-sparklines";
 import DOMPurify from "dompurify";
 import { gsap } from "gsap";
+import { useParams } from "react-router-dom";
 
 const CryptoPage = () => {
   const [crypto, setCrypto] = useState({});
-  const cryptoIDUrl = process.env.REACT_APP_CRYPTO_ID_URL;
+  const params = useParams();
+  const cryptoUrlDomain = process.env.REACT_APP_CRYPTO_ID_URL_DOMAIN;
+  const cryptoIDPermaLink = process.env.REACT_APP_CRYPTO_ID_URL_PERMALINK;
+  const url = cryptoUrlDomain + params.cryptoId + cryptoIDPermaLink;
 
   useEffect(() => {
-    axios.get(cryptoIDUrl).then((response) => {
+    axios.get(url).then((response) => {
       setCrypto(response.data);
     });
-  }, [cryptoIDUrl]);
 
-  useLayoutEffect(() => {
+    window.scrollTo(0, 0);
+  }, [url]);
+
+  useEffect(() => {
     const tl = gsap.timeline();
-    tl
-      .fromTo("#cryptoImage", {y: 80, opacity: 0}, {
+    tl.fromTo(
+      "#cryptoImage",
+      { y: 80, opacity: 0 },
+      {
         opacity: 1,
         y: 0,
-        duration: .5,
-        ease: "power3.out"
-      })
-      .fromTo(".cryptoNameAndId", {y: 60, opacity: 0}, {
-        opacity: 1,
-        y: 0,
-        duration: .5,
-        ease: 'power3.out',
-        stagger: .2,
-      })
+        duration: 0.5,
+        ease: "power3.out",
+      }
+    )
+      .fromTo(
+        ".cryptoNameAndId",
+        { y: 60, opacity: 0 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.5,
+          ease: "power3.out",
+          stagger: 0.2,
+        }
+      )
       .fromTo(
         ".cryptoDataContainer > *",
         { opacity: 0 },
@@ -42,14 +55,22 @@ const CryptoPage = () => {
           ease: "steps (1)",
         }
       )
-      .fromTo(".cryptoDescription > *", {opacity: 0, y: 90}, {
-        opacity: 1,
-        y: 0,
-        duration: .5,
-        stagger: .5,
-        ease: "power3.out"
-      })
-  }, []);
+      .fromTo(
+        ".cryptoDescription > *",
+        { opacity: 0, y: 90 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.5,
+          stagger: 0.5,
+          ease: "power3.out",
+        }
+      );
+
+    return () => {
+      tl.kill();
+    };
+  }, [crypto]);
 
   return (
     <>

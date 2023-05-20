@@ -1,25 +1,28 @@
 import React, { useState } from "react";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
+import { Link } from "react-router-dom";
 import { Sparklines, SparklinesLine } from "react-sparklines";
 
 export function CryptoItem({ crypto }) {
   const [isSaved, setIsSaved] = useState(false);
 
   return (
-    <tr className="text-center hover:bg-platinum transition-colors cursor-pointer">
+    <tr className="text-center hover:bg-platinum transition-colors">
       <td className="py-2 pl-4" onClick={() => setIsSaved(!isSaved)}>
         {isSaved ? <AiFillStar size={20} /> : <AiOutlineStar size={20} />}
       </td>
       <td className="py-2">{crypto.market_cap_rank}</td>
       <td className="py-2">
-        <div className="flex ml-3 items-center gap-2">
-          <img
-            className="w-[30px]"
-            src={crypto.image}
-            alt={`this is the symbol of ${crypto.name}`}
-          />
-          <span>{crypto.name}</span>
-        </div>
+        <Link to={`/crypto/${crypto.id}`}>
+          <div className="flex ml-3 items-center gap-2">
+            <img
+              className="w-[30px]"
+              src={crypto.image}
+              alt={`this is the symbol of ${crypto.name}`}
+            />
+            <span>{crypto.name}</span>
+          </div>
+        </Link>
       </td>
       <td className="py-2 uppercase">{crypto.symbol}</td>
       <td className="py-2">${crypto.current_price}</td>
