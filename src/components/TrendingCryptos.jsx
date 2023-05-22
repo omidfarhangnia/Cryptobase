@@ -1,9 +1,9 @@
 import React from "react";
-import { useContextData } from "../context/ContextData";
+import { usePageData } from "../context/ContextData";
 import TrendingItem from "./TrendingItem";
 
 const TrendingCryptos = () => {
-  const { trendingCryptos } = useContextData();
+  const { trendingCryptos } = usePageData();
 
   return (
     <div className="bg-darkBlue p-10">
@@ -11,7 +11,9 @@ const TrendingCryptos = () => {
         trending cryptos
       </h2>
       <div className="flex flex-wrap justify-between bg-platinum px-5 mt-10 rounded-lg w-[90%] mx-auto">
-        {trendingCryptos.map((crypto, index) => <TrendingItem crypto={crypto} key={index}/>)}
+        {trendingCryptos.map((crypto, index) => (
+          <TrendingItem crypto={crypto} key={index} />
+        ))}
       </div>
     </div>
   );

@@ -1,8 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { handleOffCanvasChange } from "./Header";
+import { usePageData } from "../context/ContextData";
+import { MdStars } from "react-icons/md";
 
 const NavBar = () => {
+  const { userData, handleLogOut } = usePageData();
+
   return (
     <div className="flex justify-between items-center px-6 md:px-8 py-10">
       <div className="uppercase w-[25%] lg:w-[20%]">
@@ -42,16 +46,25 @@ const NavBar = () => {
         </ul>
       </nav>
       <div className="hidden ml:flex ml:w-[25%] lg:w-[20%] justify-end items-center gap-3">
-        <Link to="/signin">
-          <button className="text-[15px] lg:text-[18px] md:px-5 uppercase border-2 font-mono font-bold border-solid rounded-lg border-dollor px-2 py-2">
-            sign in
-          </button>
-        </Link>
-        <Link to="/signup">
-          <button className="text-[15px] lg:text-[18px] md:px-5 uppercase border-2 font-mono font-bold border-solid rounded-lg border-coin px-2 py-2">
-            sign up
-          </button>
-        </Link>
+        {userData ? (
+          <>
+            <button className="text-[15px] lg:text-[18px] md:px-5 uppercase border-2 font-mono font-bold border-solid rounded-lg border-dollor px-2 py-2" onClick={handleLogOut}>log out</button>
+            <span className="inline-block ml-5"><MdStars size={30} fill="#F2A900"/></span>
+          </>
+        ) : (
+          <>
+            <Link to="/signin">
+              <button className="text-[15px] lg:text-[18px] md:px-5 uppercase border-2 font-mono font-bold border-solid rounded-lg border-dollor px-2 py-2">
+                sign in
+              </button>
+            </Link>
+            <Link to="/signup">
+              <button className="text-[15px] lg:text-[18px] md:px-5 uppercase border-2 font-mono font-bold border-solid rounded-lg border-coin px-2 py-2">
+                sign up
+              </button>
+            </Link>
+          </>
+        )}
       </div>
       <div
         onClick={() => handleOffCanvasChange("show")}

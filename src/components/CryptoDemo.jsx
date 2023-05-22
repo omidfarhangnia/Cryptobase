@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { useContextData } from "../context/ContextData";
+import { usePageData } from "../context/ContextData";
 import CryptoItem from "./CryptoItem";
 
 const CryptoDemo = () => {
   const [search, setSearch] = useState("");
-  const { cryptos } = useContextData();
+  const { cryptos } = usePageData();
 
   function handleChangeSearch(e) {
     setSearch(e.target.value);
@@ -92,7 +92,12 @@ export function CryptoPlaceHolder() {
   return (
     <>
       {context.map((item, index) => (
-        <tr className="text-center hover:bg-platinum transition-colors cursor-pointer" key={index}>{item}</tr>
+        <tr
+          className="text-center hover:bg-platinum transition-colors cursor-pointer"
+          key={index}
+        >
+          {item}
+        </tr>
       ))}
     </>
   );

@@ -28,7 +28,7 @@ function App() {
     axios.get(trendingCryptoUrl).then((response) => {
       setTrendingCryptos(response.data.coins);
     })
-  }, [trendingCryptoUrl])
+  }, [trendingCryptoUrl]);
   
   return (
     <ContextData cryptos={cryptos} trendingCryptos={trendingCryptos}>

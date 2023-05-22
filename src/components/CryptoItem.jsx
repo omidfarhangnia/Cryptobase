@@ -9,7 +9,7 @@ export function CryptoItem({ crypto }) {
   return (
     <tr className="text-center hover:bg-platinum transition-colors">
       <td className="py-2 pl-4" onClick={() => setIsSaved(!isSaved)}>
-        {isSaved ? <AiFillStar size={20} /> : <AiOutlineStar size={20} />}
+        {isSaved ? <AiFillStar size={20} fill="#F2A900"/> : <AiOutlineStar size={20} fill="#2F4920"/>}
       </td>
       <td className="py-2">{crypto.market_cap_rank}</td>
       <td className="py-2">
