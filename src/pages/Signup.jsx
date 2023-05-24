@@ -11,12 +11,13 @@ const Signup = () => {
 
   return (
     <form onSubmit={(e) => {e.preventDefault()}}>
-      <div className="flex flex-col">
+      <div className="flex flex-col gap-5">
         <input
           type="email"
           value={emailValue}
           onChange={(e) => setEmailValue(e.target.value)}
           autoComplete="new-password"
+          placeholder="email..."
         />
         <input
           type="password"
@@ -26,6 +27,7 @@ const Signup = () => {
           }}
           ref={inputRef}
           autoComplete="new-password"
+          placeholder="password..."
         />
         <div>
           <input

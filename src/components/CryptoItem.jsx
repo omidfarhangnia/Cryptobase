@@ -3,35 +3,41 @@ import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { Sparklines, SparklinesLine } from "react-sparklines";
 import { usePageData } from "../context/ContextData";
-import { arrayRemove, arrayUnion, collection, doc, getDoc, onSnapshot, query, updateDoc } from "firebase/firestore";
+import { arrayUnion, doc, updateDoc } from "firebase/firestore";
 import { db } from "../firebase";
 
 export function CryptoItem({ crypto }) {
   const [isSaved, setIsSaved] = useState(false);
-  const {userData} = usePageData();
+  const {userData, userDoc} = usePageData();
 
-  function handleAddCrypto() {
-    if(userData) {
-      updateDoc(doc(db, "users", `${userData?.email}`), {
-        favorites: arrayUnion(crypto.name)
-      })
-    }else {
-      alert("please sign in first")
+  function addToFavorite() {
+    updateDoc(doc(db, "users", `${userData?.email}`), {
+      favorites: arrayUnion(crypto.name)
+    })
+  }
+
+  function removeFromFavorite() {
+    const favorites = [...userDoc?.favorites]
+    const itemIndex = favorites.indexOf(crypto.name);
+    const slicedArray = favorites.splice(itemIndex, 1);
+    updateDoc(doc(db, "users", `${userData?.email}`), {
+      favorites: favorites
+    })
+  }
+
+  useEffect(() => {
+    if(!userData) {
+      setIsSaved(false)
     }
-  }
-
-  function handleRemoveCrypto() {
-    const q = query(collection(db, "users"));
-    const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      console.log(querySnapshot)
-    });
-    return () => unsubscribe();
-  }
+    if(userDoc?.favorites?.includes(crypto.name)){
+      setIsSaved(true)
+    }
+  }, [userData, userDoc])
 
   return (
     <tr className="text-center hover:bg-platinum transition-colors">
       <td className="py-2 pl-4" onClick={() => setIsSaved(!isSaved)}>
-        {isSaved ? <AiFillStar size={20} fill="#F2A900" onClick={handleRemoveCrypto}/> : <AiOutlineStar size={20} fill="#2F4920" onClick={handleAddCrypto}/>}
+        {isSaved ? <AiFillStar onClick={removeFromFavorite} size={20} fill="#F2A900" /> : <AiOutlineStar onClick={addToFavorite} size={20} fill="#2F4920" />}
       </td>
       <td className="py-2">{crypto.market_cap_rank}</td>
       <td className="py-2">
