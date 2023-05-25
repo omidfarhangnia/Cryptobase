@@ -56,6 +56,7 @@ const ContextData = ({ cryptos, trendingCryptos, children }) => {
     signOut(auth)
       .then(() => {
         alert("log out was succsefully");
+        setUserDoc({})
         navigate("/");
       })
       .catch((error) => {
@@ -114,31 +115,3 @@ export function usePageData() {
 }
 
 export default ContextData;
-
-/*
-  const [user, setUser] = useState({});
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-    });
-    return () => {
-      unsubscribe();
-    };
-  });
-
-  function signUp(email, password) {
-    createUserWithEmailAndPassword(auth, email, password);
-    setDoc(doc(db, "users", email), {
-      savedShows: []
-    })
-  }
-
-  function logIn(email, password) {
-    return signInWithEmailAndPassword(auth, email, password);
-  }
-
-  function logOut() {
-    return signOut(auth);
-  }
-*/
