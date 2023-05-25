@@ -6,9 +6,9 @@ import { usePageData } from "../context/ContextData";
 import { arrayUnion, doc, updateDoc } from "firebase/firestore";
 import { db } from "../firebase";
 
-export function CryptoItem({ crypto }) {
+export function CryptoItem({ crypto, cryptoStatus }) {
   const [isSaved, setIsSaved] = useState(false);
-  const {userData, userDoc} = usePageData();
+  const {userData} = usePageData();
 
   function addToFavorite() {
     updateDoc(doc(db, "users", `${userData?.email}`), {
@@ -17,11 +17,11 @@ export function CryptoItem({ crypto }) {
   }
 
   function removeFromFavorite() {
-    const favorites = [...userDoc?.favorites]
+    const favorites = [...cryptoStatus]
     const itemIndex = favorites.indexOf(crypto.name);
     const slicedArray = favorites.splice(itemIndex, 1);
     updateDoc(doc(db, "users", `${userData?.email}`), {
-      favorites: favorites
+      favorites: [...favorites]
     })
   }
 
@@ -29,10 +29,12 @@ export function CryptoItem({ crypto }) {
     if(!userData) {
       setIsSaved(false)
     }
-    if(userDoc?.favorites?.includes(crypto.name)){
+    if(cryptoStatus.includes(crypto.name)){
       setIsSaved(true)
+    }else {
+      setIsSaved(false)
     }
-  }, [userData, userDoc])
+  }, [cryptoStatus])
 
   return (
     <tr className="text-center hover:bg-platinum transition-colors">

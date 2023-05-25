@@ -1,21 +1,48 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AiFillInstagram } from "react-icons/ai";
 import { BsGithub, BsMeta, BsTiktok, BsTwitter } from "react-icons/bs";
+import { usePageData } from "../context/ContextData";
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from "../firebase";
 
 const Footer = () => {
-  const [emailInput, setEmailInput] = useState("");
+  const [isNewsActive, setIsNewsActive] = useState(false);
+  const { userDoc } = usePageData();
 
-  function handleEmailClick() {
-    // i will do something here
+  useEffect(() => {
+    if (userDoc.length !== 0) {
+      setIsNewsActive(userDoc.isCryptoNewsActive);
+    }
+  }, [userDoc]);
+
+  function handleNewsActive() {
+    if (Object.keys(userDoc).length === 0) {
+      alert("please sign in or sign up first");
+    } else {
+      updateDoc(doc(db, "users", `${userDoc.email}`), {
+        isCryptoNewsActive: true,
+      }).then(() => {
+        setIsNewsActive(true);
+      });
+    }
   }
 
+  function handleNewsInActive() {
+    updateDoc(doc(db, "users", `${userDoc.email}`), {
+      isCryptoNewsActive: false,
+    }).then(() => {
+      setIsNewsActive(false);
+    });
+  }
 
   return (
     <>
       <footer className="flex flex-col px-10 py-6">
         <div className="flex flex-wrap gap-[40px]">
           <div className="flex w-full md:w-auto flex-col">
-            <h3 className="font-bold text-[20px] uppercase select-none mb-1">support</h3>
+            <h3 className="font-bold text-[20px] uppercase select-none mb-1">
+              support
+            </h3>
             <div className="text-[17px] uppercase hover:text-darkBlue cursor-pointer font-openSans mb-[3px]">
               help center
             </div>
@@ -30,7 +57,9 @@ const Footer = () => {
             </div>
           </div>
           <div className="flex w-full md:w-auto flex-col">
-            <h3 className="font-bold text-[20px] uppercase select-none mb-1">info</h3>
+            <h3 className="font-bold text-[20px] uppercase select-none mb-1">
+              info
+            </h3>
             <div className="text-[17px] uppercase hover:text-darkBlue cursor-pointer font-openSans mb-[3px]">
               about us
             </div>
@@ -49,18 +78,21 @@ const Footer = () => {
               sign up for crypto news
             </div>
             <div className="flex flex-wrap w-full md:w-auto gap-4">
-              <input
-                className="border-2 w-full md:w-auto rounded-xl border-black border-solid px-3 py-2 text-[17px] placeholder:capitalize placeholder:text-black/60"
-                type="email"
-                placeholder="enter your email"
-                onChange={(e) => setEmailInput(e.target.value)}
-  />
-              <button
-                onClick={handleEmailClick}
-                className="text-[17px] w-full md:w-auto text-center bg-darkBlue text-white py-2 px-5 rounded-xl capitalize border-2 border-solid border-transparent transition-all hover:bg-white hover:text-darkBlue hover:border-black"
-              >
-                sign up
-              </button>
+              {isNewsActive ? (
+                <button
+                  onClick={handleNewsInActive}
+                  className="text-[17px] w-full md:w-auto text-center bg-darkBlue text-white py-2 px-5 rounded-xl capitalize border-2 border-solid border-transparent transition-all hover:bg-white hover:text-darkBlue hover:border-black"
+                >
+                  i dont need news
+                </button>
+              ) : (
+                <button
+                  onClick={handleNewsActive}
+                  className="text-[17px] w-full md:w-auto text-center bg-darkBlue text-white py-2 px-5 rounded-xl capitalize border-2 border-solid border-transparent transition-all hover:bg-white hover:text-darkBlue hover:border-black"
+                >
+                  send me news
+                </button>
+              )}
             </div>
           </div>
         </div>

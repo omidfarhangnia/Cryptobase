@@ -1,10 +1,29 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { usePageData } from "../context/ContextData";
 import CryptoItem from "./CryptoItem";
+import { collection, onSnapshot, query } from "firebase/firestore";
+import { db } from "../firebase";
 
 const CryptoDemo = () => {
   const [search, setSearch] = useState("");
-  const { cryptos } = usePageData();
+  const [cryptoStatus, setCryptoStatus] = useState([]);
+  const { cryptos, userData } = usePageData();
+
+  useEffect(() => {
+    if (userData !== null) {
+      const q = query(collection(db, "users"));
+      const unsubscribe = onSnapshot(q, (querySnapshot) => {
+        querySnapshot.docs.map((doc) => {
+          if (doc.data()?.email === userData?.email) {
+            setCryptoStatus([...doc.data().favorites])
+          }
+        });
+      });
+      return () => unsubscribe();
+    } else {
+      setCryptoStatus([])
+    }
+  }, [userData]);
 
   function handleChangeSearch(e) {
     setSearch(e.target.value);
@@ -54,7 +73,7 @@ const CryptoDemo = () => {
                   }
                 })
                 .map((crypto, index) => (
-                  <CryptoItem key={index} crypto={crypto} />
+                  <CryptoItem key={index} crypto={crypto} cryptoStatus={cryptoStatus}/>
                 ))
             ) : (
               <CryptoPlaceHolder />
