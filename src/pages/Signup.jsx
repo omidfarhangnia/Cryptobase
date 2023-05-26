@@ -10,9 +10,15 @@ const Signup = () => {
   const { handleSignUp } = usePageData();
 
   return (
-    <form onSubmit={(e) => {e.preventDefault()}}>
-      <div className="flex flex-col gap-5">
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+      }}
+      className="bg-platinum py-[15vh]"
+    >
+      <div className="flex flex-col gap-5 px-10">
         <input
+          className="fotn-openSans text-black p-3 text-[20px] placeholder:capitalize font-mono rounded-lg"
           type="email"
           value={emailValue}
           onChange={(e) => setEmailValue(e.target.value)}
@@ -20,6 +26,7 @@ const Signup = () => {
           placeholder="email..."
         />
         <input
+          className="fotn-openSans text-black p-3 text-[20px] placeholder:capitalize font-mono rounded-lg"
           type="password"
           value={passwordValue}
           onChange={(e) => {
@@ -29,7 +36,7 @@ const Signup = () => {
           autoComplete="new-password"
           placeholder="password..."
         />
-        <div>
+        <div className="-mt-3 flex items-center gap-1">
           <input
             value={isPasswordVisibile}
             type="checkbox"
@@ -39,18 +46,26 @@ const Signup = () => {
               setIsPasswordVisible(!isPasswordVisibile);
             }}
           />{" "}
-          <label htmlFor="showPassword">show password</label>
+          <label
+            htmlFor="showPassword"
+            className="capitalize text-mono text-[15px] "
+          >
+            show password
+          </label>
         </div>
         <button
+          className="w-full bg-darkBlue text-white text-[20px] text-center py-2 capitalize font-bold rounded-lg"
           onClick={() => {
             handleSignUp(emailValue, passwordValue);
           }}
         >
           sign up
         </button>
-        <p>
-          if you have already an account
-          <Link to="/signin">sign in</Link>
+        <p className="capitalize text-[15px]">
+          if you have already an account{" "}
+          <Link to="/signin" className="underline font-bold">
+            sign in
+          </Link>
         </p>
       </div>
     </form>

@@ -10,42 +10,65 @@ const Signin = () => {
   const { handleSignIn } = usePageData();
 
   return (
-    <div className="flex flex-col">
-      <input
-        type="email"
-        value={emailValue}
-        onChange={(e) => setEmailValue(e.target.value)}
-        autoComplete="new-password"
-      />
-      <input
-        type="password"
-        value={passwordValue}
-        onChange={(e) => {
-          setPasswordValue(e.target.value);
-        }}
-        ref={inputRef}
-        autoComplete="new-password"
-      />
-      <div>
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+      }}
+      className="bg-platinum py-[15vh]"
+    >
+      <div className="flex flex-col gap-5 px-10">
         <input
-          value={isPasswordVisibile}
-          type="checkbox"
-          id="showPassword"
+          className="fotn-openSans text-black p-3 text-[20px] placeholder:capitalize font-mono rounded-lg"
+          type="email"
+          value={emailValue}
+          onChange={(e) => setEmailValue(e.target.value)}
+          autoComplete="new-password"
+          placeholder="email..."
+        />
+        <input
+          className="fotn-openSans text-black p-3 text-[20px] placeholder:capitalize font-mono rounded-lg"
+          type="password"
+          value={passwordValue}
           onChange={(e) => {
-            inputRef.current.type = !isPasswordVisibile ? "text" : "password";
-            setIsPasswordVisible(!isPasswordVisibile);
+            setPasswordValue(e.target.value);
           }}
-        />{" "}
-        <label htmlFor="showPassword">show password</label>
+          ref={inputRef}
+          autoComplete="new-password"
+          placeholder="password..."
+        />
+        <div className="-mt-3 flex items-center gap-1">
+          <input
+            value={isPasswordVisibile}
+            type="checkbox"
+            id="showPassword"
+            onChange={(e) => {
+              inputRef.current.type = !isPasswordVisibile ? "text" : "password";
+              setIsPasswordVisible(!isPasswordVisibile);
+            }}
+          />{" "}
+          <label
+            htmlFor="showPassword"
+            className="capitalize text-mono text-[15px] "
+          >
+            show password
+          </label>
+        </div>
+        <button
+          className="w-full bg-darkBlue text-white text-[20px] text-center py-2 capitalize font-bold rounded-lg"
+          onClick={() => {
+            handleSignIn(emailValue, passwordValue);
+          }}
+        >
+          sign in
+        </button>
+        <p className="capitalize text-[15px]">
+          you are new please{" "}
+          <Link to="/signup" className="underline font-bold">
+            sign up
+          </Link>
+        </p>
       </div>
-      <button onClick={() => {
-        handleSignIn(emailValue, passwordValue)
-      }}>sign in</button>
-      <p>
-        you are new please
-        <Link to="/signup">sign up</Link>
-      </p>
-    </div>
+    </form>
   );
 };
 
