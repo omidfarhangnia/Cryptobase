@@ -44,7 +44,7 @@ const ContextData = ({ cryptos, trendingCryptos, children }) => {
       const unsubscribe = onSnapshot(q, (querySnapshot) => {
         querySnapshot.docs.map((doc) => {
           if (doc.data()?.email === userData?.email) {
-            setUserDoc({...doc.data()})
+            setUserDoc({ ...doc.data() });
           }
         });
       });
@@ -55,12 +55,13 @@ const ContextData = ({ cryptos, trendingCryptos, children }) => {
   const handleLogOut = async () => {
     signOut(auth)
       .then(() => {
-        alert("log out was succsefully");
-        setUserDoc({})
+        console.log("logout was successfuly");
+        setUserDoc({});
         navigate("/");
       })
       .catch((error) => {
-        alert(error);
+        console.log(error);
+        alert("something went wrong try again");
       });
   };
 
@@ -70,7 +71,8 @@ const ContextData = ({ cryptos, trendingCryptos, children }) => {
         navigate("/");
       })
       .catch((error) => {
-        alert("guess what you have an error " + error);
+        console.log(error);
+        alert("something went wrong try again");
       });
   };
 
@@ -87,9 +89,8 @@ const ContextData = ({ cryptos, trendingCryptos, children }) => {
         navigate("/");
       })
       .catch((error) => {
-        alert(
-          "guess what you have an error " + error.code + " // " + error.message
-        );
+        console.log(error);
+        alert("something went wrong try again");
       });
   };
 
