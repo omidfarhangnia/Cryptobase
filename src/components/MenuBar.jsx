@@ -2,8 +2,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { RxCross1 } from "react-icons/rx";
 import { handleOffCanvasChange } from "./Header";
+import { usePageData } from "../context/ContextData";
+import { MdStars } from "react-icons/md";
 
 const MenuBar = () => {
+  const { userData, handleLogOut } = usePageData();
+
   return (
     <div>
       <div
@@ -11,10 +15,20 @@ const MenuBar = () => {
         className="hidden ml:hidden fixed top-0 left-0 w-[100vw] h-[100vh] flex-col items-center justify-center bg-gradient-to-tr from-[#FFD77B] to-[#BFDCAE]"
       >
         <div
-          className="absolute top-[7vh] right-[7vh]"
+          className="flex w-[70vw] justify-between items-center mb-[10vh]"
           onClick={() => handleOffCanvasChange("hide")}
         >
-          <RxCross1 size={23} />
+          <div className="uppercase w-[25%] lg:w-[20%]">
+            <Link to="/">
+              <span className="text-coin font-pacifico text-[20px] md:text-[26px]">
+                crypto
+              </span>
+              <span className="text-dollor font-teko text-[26px] md:text-[35px]">
+                base
+              </span>
+            </Link>
+          </div>
+          <RxCross1 size={23} className="cursor-pointer" />
         </div>
         <nav className="block w-[90%] mb-[15vh]">
           <ul className="flex flex-col h-[30vh] justify-between items-center">
@@ -52,17 +66,46 @@ const MenuBar = () => {
             </Link>
           </ul>
         </nav>
-        <div className="flex flex-col w-[90%] justify-center items-center gap-3">
-          <Link to="/signin" onClick={() => handleOffCanvasChange("hide")}>
-            <button className="text-[20px] text-center min-w-[80vw] uppercase border-2 font-mono font-bold border-solid rounded-lg border-dollor px-2 py-2">
-              sign in
-            </button>
-          </Link>
-          <Link to="/signup" onClick={() => handleOffCanvasChange("hide")}>
-            <button className="text-[20px] text-center min-w-[80vw] uppercase border-2 font-mono font-bold border-solid rounded-lg border-coin px-2 py-2">
-              sign up
-            </button>
-          </Link>
+        <div className="flex flex-col w-[75%] justify-center items-center gap-3">
+          {userData ? (
+            <>
+              <div className="flex w-full justify-between items-center">
+                <Link to="/">
+                  <button
+                    className="text-[17px] text-center min-w-[120px] w-[30%] uppercase border-2 font-mono font-bold border-solid rounded-lg border-dollor px-2 py-2"
+                    onClick={() => {
+                      handleLogOut();
+                      handleOffCanvasChange("hide");
+                    }}
+                  >
+                    log out
+                  </button>
+                </Link>
+                <Link
+                  to="/account"
+                  onClick={() => {
+                    handleOffCanvasChange("hide");
+                  }}
+                  className="inline-block ml-5"
+                >
+                  <MdStars size={35} fill="#F2A900" />
+                </Link>
+              </div>
+            </>
+          ) : (
+            <>
+              <Link to="/signin" onClick={() => handleOffCanvasChange("hide")}>
+                <button className="text-[20px] text-center min-w-[80vw] uppercase border-2 font-mono font-bold border-solid rounded-lg border-dollor px-2 py-2">
+                  sign in
+                </button>
+              </Link>
+              <Link to="/signup" onClick={() => handleOffCanvasChange("hide")}>
+                <button className="text-[20px] text-center min-w-[80vw] uppercase border-2 font-mono font-bold border-solid rounded-lg border-coin px-2 py-2">
+                  sign up
+                </button>
+              </Link>
+            </>
+          )}
         </div>
       </div>
       <div

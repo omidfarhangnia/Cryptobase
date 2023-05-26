@@ -48,8 +48,15 @@ const NavBar = () => {
       <div className="hidden ml:flex ml:w-[25%] lg:w-[20%] justify-end items-center gap-3">
         {userData ? (
           <>
-            <button className="text-[15px] lg:text-[18px] md:px-5 uppercase border-2 font-mono font-bold border-solid rounded-lg border-dollor px-2 py-2" onClick={handleLogOut}>log out</button>
-            <span className="inline-block ml-5"><MdStars size={30} fill="#F2A900"/></span>
+            <button
+              className="text-[15px] lg:text-[18px] md:px-5 uppercase border-2 font-mono font-bold border-solid rounded-lg border-dollor px-2 py-2"
+              onClick={handleLogOut}
+            >
+              log out
+            </button>
+            <Link to="/account" className="inline-block ml-5">
+              <MdStars size={30} fill="#F2A900" />
+            </Link>
           </>
         ) : (
           <>

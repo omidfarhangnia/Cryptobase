@@ -77,27 +77,25 @@ const Footer = () => {
             <div className="text-[20px] capitalize font-bold mb-4 text-center">
               sign up for crypto news
             </div>
-            <div className="flex flex-wrap w-full md:w-auto gap-4">
-              {isNewsActive ? (
-                <button
-                  onClick={handleNewsInActive}
-                  className="text-[17px] w-full md:w-auto text-center bg-darkBlue text-white py-2 px-5 rounded-xl capitalize border-2 border-solid border-transparent transition-all hover:bg-white hover:text-darkBlue hover:border-black"
-                >
-                  i dont need news
-                </button>
-              ) : (
-                <button
-                  onClick={handleNewsActive}
-                  className="text-[17px] w-full md:w-auto text-center bg-darkBlue text-white py-2 px-5 rounded-xl capitalize border-2 border-solid border-transparent transition-all hover:bg-white hover:text-darkBlue hover:border-black"
-                >
-                  send me news
-                </button>
-              )}
-            </div>
+            {isNewsActive ? (
+              <button
+                onClick={handleNewsInActive}
+                className="text-[17px] w-auto text-center bg-darkBlue text-white py-2 px-5 rounded-xl capitalize border-2 border-solid border-transparent transition-all hover:bg-white hover:text-darkBlue hover:border-darkBlue"
+              >
+                i dont need news
+              </button>
+            ) : (
+              <button
+                onClick={handleNewsActive}
+                className="text-[17px] w-auto text-center bg-darkBlue text-white py-2 px-5 rounded-xl capitalize border-2 border-solid border-transparent transition-all hover:bg-white hover:text-darkBlue hover:border-darkBlue"
+              >
+                send me news
+              </button>
+            )}
           </div>
         </div>
         <div className="flex justify-end w-full my-5">
-          <nav className="w-[20%] min-w-[300px]">
+          <nav className="md:w-[30%] lg:w-[20%] w-full max-w-[400px]">
             <ul className="flex justify-between">
               <li className="hover:-translate-y-1 transition-all">
                 <AiFillInstagram size={25} />
