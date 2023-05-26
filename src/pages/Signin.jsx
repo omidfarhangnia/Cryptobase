@@ -27,9 +27,9 @@ const Signin = () => {
       onSubmit={(e) => {
         e.preventDefault();
       }}
-      className="bg-platinum py-[15vh]"
+      className="bg-[#282828] py-[15vh] formBgStyle"
     >
-      <div className="flex flex-col gap-5 px-10 max-w-[500px] w-[50%] mx-auto">
+      <div className="flex flex-col gap-5 px-10 max-w-[500px] md:w-[50%] mx-auto text-white md:bg-platinum/70 md:p-10 md:rounded-3xl md:text-black">
         <div>
           <input
             className="fotn-openSans w-full text-black p-3 text-[20px] placeholder:capitalize font-mono rounded-lg"
