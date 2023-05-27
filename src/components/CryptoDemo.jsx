@@ -38,12 +38,12 @@ const CryptoDemo = () => {
         <input
           value={search}
           type="text"
-          className="bg-[#fefefe] border-none outline-none px-6 py-2 rounded-full md:text-[20px] md:py-4 md:px-10 tableScrollBar"
+          className="bg-[#fefefe] border-none outline-none px-6 py-2 rounded-full md:text-[20px] md:py-4 md:px-10"
           onChange={handleChangeSearch}
           placeholder="seaarch a crypto"
         />
       </div>
-      <div className="w-90% overflow-x-scroll tableScrollBar">
+      <div className="overflow-x-scroll tableScrollBar">
         <table className="bg-white mt-10 mx-auto w-[90%] rounded-lg min-h-[50vh] min-w-[1000px]">
           <thead>
             <tr className="border-b-4">

@@ -54,6 +54,14 @@
         background-position: center;
         background-blend-mode: color-dodge;
     }
+
+    .accountBgImage{
+        background-image: url("/src/images/account_bg_image.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: 60%;
+        background-blend-mode: multiply;
+    }
 }
 
 @keyframes placeHolderAnime {

@@ -37,10 +37,9 @@ const Account = () => {
       setIsNewsActive(false);
     });
   }
-  console.log(userDoc.favorites);
 
   return (
-    <div className="flex flex-col justify-center items-center gap-5 my-[5vh] py-[15vh] bg-darkBlue">
+    <div className="flex flex-col justify-center items-center gap-5 my-[5vh] py-[15vh] bg-darkBlue accountBgImage">
       <div className="w-[30vw] h-[30vw] max-w-[200px] max-h-[200px] p-2 rounded-full relative">
         <img
           src={profileImage === "" ? defaultProfileImage : profileImage}
@@ -73,12 +72,12 @@ const Account = () => {
           no need news
         </div>
       </div>
-      <div className="flex flex-col mt-10">
+      <div className="flex flex-col justify-center items-center mt-10 w-full">
         <h1 className="text-2xl md:text-3xl lg:text-4xl text-white capitalize">
           my favorite cryptos:
         </h1>
-        <div>
-          <table className="bg-white mt-10 mx-auto w-[90%] rounded-lg min-h-[50vh] min-w-[1000px]">
+        <div className="overflow-x-scroll tableScrollBar w-[80%] ">
+          <table className="bg-white mt-10 mx-auto w-[100%] rounded-lg min-h-[50vh] min-w-[1000px]">
             <thead>
               <tr className="border-b-4">
                 <th className="py-3 capitalize font-openSans"></th>
