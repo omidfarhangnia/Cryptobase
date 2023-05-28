@@ -9,9 +9,10 @@ import React, {
   useContext,
   useEffect,
   useLayoutEffect,
+  useRef,
   useState,
 } from "react";
-import { auth, db } from "../firebase";
+import { auth, db, storage } from "../firebase";
 import {
   collection,
   doc,
@@ -21,12 +22,14 @@ import {
   setDoc,
 } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 const pageData = createContext(null);
 
 const ContextData = ({ cryptos, trendingCryptos, children }) => {
   const [userData, setUserData] = useState({});
   const [userDoc, setUserDoc] = useState({});
+  const [userImage, setUserImage] = useState(null);
   const navigate = useNavigate();
 
   useLayoutEffect(() => {
@@ -85,7 +88,6 @@ const ContextData = ({ cryptos, trendingCryptos, children }) => {
           favorites: [],
           isCryptoNewsActive: false,
         });
-
         navigate("/");
       })
       .catch((error) => {

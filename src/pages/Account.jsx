@@ -2,21 +2,41 @@ import React, { useEffect, useState } from "react";
 import defaultProfileImage from "../images/Default_profile_image.png";
 import { usePageData } from "../context/ContextData";
 import { doc, updateDoc } from "firebase/firestore";
-import { db } from "../firebase";
+import { db, storage } from "../firebase";
 import { MdChangeCircle } from "react-icons/md";
+import { GrUploadOption } from "react-icons/gr";
 import { CryptoPlaceHolder } from "../components/CryptoDemo";
 import CryptoItem from "../components/CryptoItem";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 const Account = () => {
-  const [profileImage, setProfileImage] = useState("");
+  const [profileImage, setProfileImage] = useState(null);
   const [isNewsActive, setIsNewsActive] = useState(false);
   const { userData, userDoc, cryptos } = usePageData();
+  const folderRef = ref(storage, `images/${userDoc?.email}`);
 
   useEffect(() => {
     if (userDoc.length !== 0) {
       setIsNewsActive(userDoc.isCryptoNewsActive);
     }
   }, [userDoc]);
+
+  useEffect(() => {
+    getDownloadURL(ref(storage, `images/${userDoc?.email}`))
+      .then((url) => {
+        // const xhr = new XMLHttpRequest();
+        // xhr.responseType = "blob";
+        // xhr.onload = (event) => {
+        //   const blob = xhr.response;
+        // };
+        // xhr.open("GET", url);
+        // xhr.send();
+        console.log(url);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [userData, userDoc]);
 
   function handleNewsActive() {
     if (Object.keys(userDoc).length === 0) {
@@ -38,17 +58,45 @@ const Account = () => {
     });
   }
 
+  function handleUploadImage() {
+    try {
+      uploadBytes(
+        ref(storage, `images/${userDoc?.email}/${profileImage.name}`),
+        profileImage
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   return (
     <div className="flex flex-col justify-center items-center gap-5 my-[5vh] py-[15vh] bg-darkBlue accountBgImage">
       <div className="w-[30vw] h-[30vw] max-w-[200px] max-h-[200px] p-2 rounded-full relative">
         <img
-          src={profileImage === "" ? defaultProfileImage : profileImage}
+          src={defaultProfileImage}
           aria-hidden
           alt={"this is profile image"}
         />
-        <MdChangeCircle
-          size={30}
-          className="fill-platinum absolute bottom-0 right-0"
+        {profileImage === null ? (
+          <label
+            htmlFor="selectImageInput"
+            className="absolute bottom-0 right-0 cursor-pointer"
+          >
+            <MdChangeCircle size={30} className="fill-platinum" />
+          </label>
+        ) : (
+          <GrUploadOption
+            size={30}
+            className="fill-platinum absolute bottom-0 right-0 cursor-pointer"
+            onClick={handleUploadImage}
+          />
+        )}
+        <input
+          onChange={(e) => setProfileImage(e.target.files[0])}
+          type="file"
+          id="selectImageInput"
+          className="hidden"
+          accept=".jpg, .png, .jpeg"
         />
       </div>
       <p className="text-center text-white text-[20px] font-openSans">
